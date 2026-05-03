@@ -3,10 +3,153 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Brian Tourgee</title>
-  <link rel="stylesheet" href="styles.css" />
+  <title>Brian Tourgee — Enterprise Account Executive</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Bebas+Neue&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #1a1f2e;
+      --bg2: #222838;
+      --panel: #2a3045;
+      --panel2: #313a55;
+      --slate: #4a6fa5;
+      --slate-light: #6b8fc5;
+      --slate-bright: #7bafd4;
+      --accent: #7bafd4;
+      --accent2: #a8d4f0;
+      --text: #e8edf5;
+      --text2: #b8c4d8;
+      --muted: #7a8aa8;
+      --line: rgba(122,138,168,0.2);
+      --line2: rgba(122,138,168,0.1);
+      --radius: 12px;
+      --radius-sm: 8px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 20% 0%, rgba(74,111,165,0.15) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 40% at 80% 100%, rgba(123,175,212,0.08) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .container { max-width: 860px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
+    .site-header {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(26,31,46,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--line);
+    }
+    .header-inner { display: flex; align-items: center; justify-content: space-between; height: 56px; }
+    .brand { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 2px; color: var(--accent); text-decoration: none; }
+    .nav { display: flex; gap: 28px; }
+    .nav a { color: var(--text2); text-decoration: none; font-size: 13px; font-weight: 500; letter-spacing: 0.5px; text-transform: uppercase; transition: color 0.2s; }
+    .nav a:hover { color: var(--accent); }
+    .nav-toggle { display: none; }
+    .stats-bar { background: linear-gradient(135deg, var(--slate) 0%, #3d5a8a 100%); border-bottom: 1px solid rgba(123,175,212,0.2); }
+    .stats-bar-inner { display: flex; align-items: stretch; }
+    .stat-bar-item { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 16px 12px; border-right: 1px solid rgba(255,255,255,0.1); }
+    .stat-bar-item:last-child { border-right: none; }
+    .stat-bar-number { font-family: 'Bebas Neue', sans-serif; font-size: 32px; letter-spacing: 1px; color: #fff; line-height: 1; }
+    .stat-bar-label { font-size: 11px; color: rgba(255,255,255,0.7); text-transform: uppercase; letter-spacing: 0.8px; margin-top: 4px; text-align: center; }
+    .hero { padding: 64px 0 48px; animation: fadeUp 0.8s ease both; }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+    .eyebrow { font-size: 11px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); margin-bottom: 16px; }
+    h1 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(56px, 10vw, 88px); letter-spacing: 3px; line-height: 0.95; color: var(--text); margin-bottom: 16px; }
+    .subtitle { font-size: 16px; color: var(--text2); font-weight: 400; max-width: 540px; margin-bottom: 24px; }
+    .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
+    .tag { border: 1px solid var(--slate); background: rgba(74,111,165,0.15); color: var(--accent2); padding: 5px 12px; border-radius: 999px; font-size: 12px; font-weight: 500; }
+    @keyframes gentlePulse {
+      0%, 100% { opacity: 1; border-color: var(--slate); }
+      50% { opacity: 0.7; border-color: var(--slate-bright); }
+    }
+    .cta-bar {
+      background: linear-gradient(135deg, rgba(74,111,165,0.2), rgba(123,175,212,0.1));
+      border: 1px solid var(--slate);
+      border-radius: var(--radius);
+      padding: 14px 20px;
+      font-size: 14px;
+      color: var(--accent2);
+      margin-bottom: 24px;
+      animation: gentlePulse 3.5s ease-in-out infinite;
+    }
+    .cta-bar a { color: #fff; font-weight: 600; text-decoration: underline; }
+    .hero-links { display: flex; gap: 10px; flex-wrap: wrap; }
+    .hero-link { display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--line); background: var(--panel); color: var(--text2); padding: 10px 18px; border-radius: var(--radius-sm); text-decoration: none; font-size: 13px; font-weight: 500; transition: all 0.2s; }
+    .hero-link:hover { border-color: var(--slate); background: var(--panel2); color: var(--accent); }
+    .focus-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 28px; }
+    .focus-card { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px; transition: border-color 0.2s; }
+    .focus-card:hover { border-color: var(--slate); }
+    .focus-label { font-size: 11px; font-weight: 500; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+    .focus-value { font-size: 13px; color: var(--text); font-weight: 500; }
+    .section { padding: 48px 0; border-top: 1px solid var(--line2); animation: fadeUp 0.8s ease both; animation-delay: 0.1s; }
+    h2 { font-family: 'Bebas Neue', sans-serif; font-size: 36px; letter-spacing: 2px; color: var(--text); margin-bottom: 28px; position: relative; display: inline-block; }
+    h2::after { content: ''; position: absolute; bottom: -6px; left: 0; width: 40px; height: 2px; background: var(--slate); border-radius: 2px; }
+    .bullets { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .bullets li { padding-left: 18px; position: relative; color: var(--text2); font-size: 14px; }
+    .bullets li::before { content: '›'; position: absolute; left: 0; color: var(--slate-bright); font-weight: 700; }
+    .timeline { display: flex; flex-direction: column; gap: 32px; }
+    .timeline-item { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 28px; position: relative; transition: border-color 0.2s, transform 0.2s; }
+    .timeline-item:hover { border-color: var(--slate); transform: translateY(-2px); }
+    .timeline-item::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--slate), var(--slate-bright)); border-radius: var(--radius) var(--radius) 0 0; opacity: 0; transition: opacity 0.2s; }
+    .timeline-item:hover::before { opacity: 1; }
+    .timeline-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 6px; flex-wrap: wrap; }
+    .company-header { display: flex; align-items: center; gap: 12px; }
+    .company-logo { width: 36px; height: 36px; border-radius: 8px; background: var(--panel2); border: 1px solid var(--line); display: flex; align-items: center; justify-content: center; font-family: 'Bebas Neue', sans-serif; font-size: 14px; color: var(--accent); letter-spacing: 1px; flex-shrink: 0; }
+    h3 { font-size: 17px; font-weight: 600; color: var(--text); }
+    .date-badge { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--muted); background: var(--bg2); border: 1px solid var(--line); padding: 3px 10px; border-radius: 999px; white-space: nowrap; }
+    .role-desc { font-size: 13px; color: var(--muted); margin-bottom: 16px; font-style: italic; }
+    .role-snapshot { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+    .stat { background: var(--bg2); border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 8px 12px; min-width: 0; }
+    .stat-label { display: block; font-size: 10px; font-weight: 500; letter-spacing: 0.8px; text-transform: uppercase; color: var(--muted); margin-bottom: 2px; }
+    .stat-value { display: block; font-size: 13px; font-weight: 600; color: var(--text); font-family: 'DM Mono', monospace; }
+    .attainment-stat .stat-value { color: var(--slate-bright); font-size: 16px; }
+    .quote-section { padding: 64px 0; border-top: 1px solid var(--line2); text-align: center; }
+    .quote-text { font-family: 'Bebas Neue', sans-serif; font-size: clamp(28px, 5vw, 48px); letter-spacing: 2px; line-height: 1.2; margin-bottom: 8px; }
+    .quote-text .highlight { color: var(--accent); }
+    .quote-divider { width: 60px; height: 2px; background: linear-gradient(90deg, var(--slate), var(--slate-bright)); margin: 20px auto; border-radius: 2px; }
+    .quote-sub { font-size: 13px; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 48px; }
+    .beyond-label { font-family: 'Bebas Neue', sans-serif; font-size: 28px; letter-spacing: 2px; color: var(--text); margin-bottom: 6px; position: relative; display: inline-block; }
+    .beyond-label::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 40px; height: 2px; background: var(--slate); border-radius: 2px; }
+    .beyond-sub { font-size: 13px; color: var(--muted); margin-bottom: 24px; margin-top: 12px; }
+    .lifestyle-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; max-width: 680px; margin: 0 auto; }
+    .lifestyle-card { border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line); aspect-ratio: 1; position: relative; transition: transform 0.2s, border-color 0.2s; }
+    .lifestyle-card:hover { transform: translateY(-4px); border-color: var(--slate); }
+    .lifestyle-card img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(20%) brightness(0.8); transition: filter 0.3s; }
+    .lifestyle-card:hover img { filter: grayscale(0%) brightness(0.95); }
+    .lifestyle-label { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(26,31,46,0.92)); padding: 24px 14px 12px; font-size: 12px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--accent2); }
+    .contact-grid { display: flex; gap: 24px; flex-wrap: wrap; }
+    .contact-item { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px 24px; min-width: 200px; transition: border-color 0.2s; }
+    .contact-item:hover { border-color: var(--slate); }
+    .contact-item .label { font-size: 11px; font-weight: 500; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+    .contact-item a { color: var(--accent); text-decoration: none; font-size: 15px; font-weight: 500; }
+    .contact-item a:hover { color: var(--accent2); }
+    .site-footer { border-top: 1px solid var(--line2); padding: 24px 0; margin-top: 24px; }
+    .footer-inner { display: flex; justify-content: center; color: var(--muted); font-size: 13px; }
+    @media (max-width: 640px) {
+      .nav { display: none; }
+      .focus-grid { grid-template-columns: 1fr 1fr; }
+      .stats-bar-inner { flex-wrap: wrap; }
+      .stat-bar-item { flex: 1 1 50%; border-bottom: 1px solid rgba(255,255,255,0.1); }
+      .stat-bar-number { font-size: 26px; }
+      h1 { font-size: 52px; }
+      .lifestyle-grid { grid-template-columns: 1fr; max-width: 280px; }
+    }
+  </style>
 </head>
-
 <body>
 
 <header class="site-header">
@@ -22,56 +165,67 @@
   </div>
 </header>
 
+<div class="stats-bar">
+  <div class="container">
+    <div class="stats-bar-inner">
+      <div class="stat-bar-item">
+        <div class="stat-bar-number" data-target="15" data-suffix="+">0</div>
+        <div class="stat-bar-label">Years Enterprise Sales</div>
+      </div>
+      <div class="stat-bar-item">
+        <div class="stat-bar-number" data-target="5" data-suffix="+">0</div>
+        <div class="stat-bar-label">Years MEDDPICC Practice</div>
+      </div>
+      <div class="stat-bar-item">
+        <div class="stat-bar-number" data-target="177" data-suffix="%">0</div>
+        <div class="stat-bar-label">Peak Quota Attainment</div>
+      </div>
+      <div class="stat-bar-item">
+        <div class="stat-bar-number" data-target="10" data-suffix="+">0</div>
+        <div class="stat-bar-label">Years Testing / DevOps</div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <main id="top" class="container">
+
   <section class="hero" id="about">
     <p class="eyebrow">Enterprise Account Executive • Strategic Account Executive</p>
-
-    <h1>Brian Tourgee</h1>
-
-    <p class="subtitle">
-      Enterprise Account Executive | Hunter &amp; Expansion | Complex SaaS Sales
-    </p>
-
-    <div style="margin-top:12px; display:flex; flex-wrap:wrap; gap:10px;">
-      <span style="border:1px solid var(--line); background:var(--panel2); padding:6px 10px; border-radius:999px; font-size:13px;">Testing / QA</span>
-      <span style="border:1px solid var(--line); background:var(--panel2); padding:6px 10px; border-radius:999px; font-size:13px;">DevTools</span>
-      <span style="border:1px solid var(--line); background:var(--panel2); padding:6px 10px; border-radius:999px; font-size:13px;">AI / AI-native SaaS</span>
-      <span style="border:1px solid var(--line); background:var(--panel2); padding:6px 10px; border-radius:999px; font-size:13px;">MEDDPICC</span>
+    <h1>Brian<br>Tourgee</h1>
+    <p class="subtitle">Hunter &amp; Expansion | Complex SaaS Sales | Testing · DevOps · AI</p>
+    <div class="tags">
+      <span class="tag">Testing / QA</span>
+      <span class="tag">DevTools</span>
+      <span class="tag">AI / AI-native SaaS</span>
+      <span class="tag">MEDDPICC</span>
+      <span class="tag">Enterprise Hunter</span>
     </div>
-
-    <div style="margin-top:16px; display:flex; flex-wrap:wrap; gap:10px;">
-      <a href="mailto:btourgee@gmail.com"
-         style="border:1px solid var(--line); background:var(--panel2); padding:10px 12px; border-radius:10px; text-decoration:none;">
-        Email
-      </a>
-      <a href="https://www.linkedin.com/in/briantourgee/"
-         target="_blank" rel="noopener"
-         style="border:1px solid var(--line); background:var(--panel2); padding:10px 12px; border-radius:10px; text-decoration:none;">
-        LinkedIn
-      </a>
-      <a href="#contact"
-         style="border:1px solid var(--line); background:var(--panel2); padding:10px 12px; border-radius:10px; text-decoration:none;">
-        Contact
-      </a>
+    <div class="cta-bar">
+      → Currently exploring senior enterprise AE opportunities in DevOps, Testing, and AI-native SaaS. &nbsp;<a href="mailto:btourgee@gmail.com">Let's connect →</a>
     </div>
-
-    <div style="margin-top:18px; display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:12px;">
-      <div style="border:1px solid var(--line); background:var(--panel2); border-radius:var(--radius); padding:12px 14px;">
-        <div style="color:var(--muted); font-size:12px; margin-bottom:6px;">Focus</div>
-        <div>New business (hunter) + expansion</div>
-      </div>
-      <div style="border:1px solid var(--line); background:var(--panel2); border-radius:var(--radius); padding:12px 14px;">
-        <div style="color:var(--muted); font-size:12px; margin-bottom:6px;">Strength</div>
-        <div>Enterprise, multi-stakeholder deals</div>
-      </div>
-      <div style="border:1px solid var(--line); background:var(--panel2); border-radius:var(--radius); padding:12px 14px;">
-        <div style="color:var(--muted); font-size:12px; margin-bottom:6px;">Track record</div>
-        <div>Consistent top performer</div>
-      </div>
+    <div class="hero-links">
+      <a class="hero-link" href="mailto:btourgee@gmail.com">✉ Email</a>
+      <a class="hero-link" href="https://www.linkedin.com/in/briantourgee/" target="_blank" rel="noopener">in LinkedIn</a>
+      <a class="hero-link" href="#contact">↓ Contact</a>
     </div>
-
-    <div style="margin-top:18px; border:1px solid var(--line); background:var(--panel2); border-radius:var(--radius); padding:14px 18px; font-size:14px;">
-      🚀 Currently exploring senior enterprise AE opportunities in DevOps, Testing, and AI-native SaaS. <a href="mailto:btourgee@gmail.com" style="text-decoration:underline;">Let's connect.</a>
+    <div class="focus-grid">
+      <div class="focus-card">
+        <div class="focus-label">Focus</div>
+        <div class="focus-value">Net-new hunting + expansion</div>
+      </div>
+      <div class="focus-card">
+        <div class="focus-label">Strength</div>
+        <div class="focus-value">Enterprise, multi-stakeholder deals</div>
+      </div>
+      <div class="focus-card">
+        <div class="focus-label">Track record</div>
+        <div class="focus-value">Consistent top quota producer</div>
+      </div>
+      <div class="focus-card">
+        <div class="focus-label">Style</div>
+        <div class="focus-value">Team player</div>
+      </div>
     </div>
   </section>
 
@@ -83,41 +237,29 @@
       <li>Comfortable selling technical platforms to DevOps, QA, Finance, and IT.</li>
       <li>MEDDPICC practitioner — uses it as a risk-reduction framework to qualify and close complex deals.</li>
       <li>15+ years enterprise SaaS sales with deep expertise in Testing, QA, and DevOps platforms.</li>
+      <li>Consistent quota over-attainment: 151% · 177% · 147% across last three roles.</li>
+      <li>Enterprise sales is a team sport — I bring internal orchestration skills alongside hunter discipline.</li>
     </ul>
   </section>
 
   <section id="experience" class="section">
     <h2>Experience</h2>
-
     <div class="timeline">
 
       <div class="timeline-item">
         <div class="timeline-top">
-          <h3>Cloudmore — Senior Account Executive</h3>
-          <div class="muted">Jan 2025 – Present</div>
+          <div class="company-header">
+            <div class="company-logo">CM</div>
+            <h3>Cloudmore — Senior Account Executive</h3>
+          </div>
+          <span class="date-badge">Jan 2025 – Present</span>
         </div>
-        <p class="small">Microsoft CSP billing &amp; subscription platform (SaaS)</p>
+        <p class="role-desc">Microsoft CSP billing &amp; subscription platform (SaaS)</p>
         <div class="role-snapshot">
-          <div class="stat">
-            <span class="stat-label">Quota</span>
-            <span class="stat-value">$800K</span>
-          </div>
-          <div class="stat">
-            <span class="stat-label">Attainment</span>
-            <span class="stat-value">151%</span>
-          </div>
-          <div class="stat">
-            <span class="stat-label">Typical deal size</span>
-            <span class="stat-value">$100K–$1M ARR</span>
-          </div>
-          <div class="stat">
-            <span class="stat-label">Departments engaged</span>
-            <span class="stat-value">Finance, Operations, IT, Sales</span>
-          </div>
-          <div class="stat">
-            <span class="stat-label">Personas</span>
-            <span class="stat-value">CFO, CIO, CRO, CTO, FinOps</span>
-          </div>
+          <div class="stat"><span class="stat-label">Quota</span><span class="stat-value">$800K</span></div>
+          <div class="stat attainment-stat"><span class="stat-label">Attainment</span><span class="stat-value" data-counter="151">0%</span></div>
+          <div class="stat"><span class="stat-label">Deal size</span><span class="stat-value">$100K–$1M ARR</span></div>
+          <div class="stat"><span class="stat-label">Personas</span><span class="stat-value">CFO, CIO, CRO, CTO</span></div>
         </div>
         <ul class="bullets">
           <li>#1 ranked AE in 2025 (151% of quota) — net-new, hunter role.</li>
@@ -129,64 +271,41 @@
 
       <div class="timeline-item">
         <div class="timeline-top">
-          <h3>Mavenoid — Senior Sales Executive</h3>
-          <div class="muted">Jul 2023 – Dec 2024</div>
+          <div class="company-header">
+            <div class="company-logo">MV</div>
+            <h3>Mavenoid — Senior Sales Executive</h3>
+          </div>
+          <span class="date-badge">Jul 2023 – Dec 2024</span>
         </div>
-        <p class="small">AI-powered SaaS platform</p>
+        <p class="role-desc">AI-powered SaaS platform</p>
         <div class="role-snapshot">
-          <div class="stat">
-            <span class="stat-label">Quota</span>
-            <span class="stat-value">$800K</span>
-          </div>
-          <div class="stat">
-            <span class="stat-label">Attainment</span>
-            <span class="stat-value">177%</span>
-          </div>
-          <div class="stat">
-            <span class="stat-label">Typical deal size</span>
-            <span class="stat-value">$100K–$500K ARR</span>
-          </div>
-          <div class="stat">
-            <span class="stat-label">Departments engaged</span>
-            <span class="stat-value">Customer Experience, Operations, IT, AI teams</span>
-          </div>
-          <div class="stat">
-            <span class="stat-label">Personas</span>
-            <span class="stat-value">CXO, CFO, CIO, CRO, CTO</span>
-          </div>
+          <div class="stat"><span class="stat-label">Quota</span><span class="stat-value">$800K</span></div>
+          <div class="stat attainment-stat"><span class="stat-label">Attainment</span><span class="stat-value" data-counter="177">0%</span></div>
+          <div class="stat"><span class="stat-label">Deal size</span><span class="stat-value">$100K–$500K ARR</span></div>
+          <div class="stat"><span class="stat-label">Personas</span><span class="stat-value">CXO, CFO, CIO, CTO</span></div>
         </div>
         <ul class="bullets">
           <li>#1 ranked AE in 2024 (177% of quota) — closed two largest ARR deals in company history.</li>
           <li>Owned full-cycle enterprise SaaS motions: discovery → POV → negotiation → close → expansion.</li>
           <li>Originated and closed six-figure enterprise opportunities via proactive outbound + consultative selling.</li>
           <li>Positioned AI support platform against incumbent CX tools by proving reduced support load and faster resolution.</li>
-          <li>Partnered with engineering/product/customer teams to validate AI impact during POVs.</li>
         </ul>
       </div>
 
       <div class="timeline-item">
         <div class="timeline-top">
-          <h3>Sauce Labs — Senior Account Executive</h3>
-          <div class="muted">Jan 2022 – Jun 2023</div>
+          <div class="company-header">
+            <div class="company-logo">SL</div>
+            <h3>Sauce Labs — Senior Account Executive</h3>
+          </div>
+          <span class="date-badge">Jan 2022 – Jun 2023</span>
         </div>
-        <p class="small">Enterprise testing &amp; reliability platform (mobile + cloud native)</p>
+        <p class="role-desc">Enterprise testing &amp; reliability platform (mobile + cloud native)</p>
         <div class="role-snapshot">
-          <div class="stat">
-            <span class="stat-label">Quota</span>
-            <span class="stat-value">$800K</span>
-          </div>
-          <div class="stat">
-            <span class="stat-label">Attainment</span>
-            <span class="stat-value">147%</span>
-          </div>
-          <div class="stat">
-            <span class="stat-label">Typical deal size</span>
-            <span class="stat-value">$100K–$1M ARR</span>
-          </div>
-          <div class="stat">
-            <span class="stat-label">Departments engaged</span>
-            <span class="stat-value">Engineering, QA, DevOps, Platform</span>
-          </div>
+          <div class="stat"><span class="stat-label">Quota</span><span class="stat-value">$800K</span></div>
+          <div class="stat attainment-stat"><span class="stat-label">Attainment</span><span class="stat-value" data-counter="147">0%</span></div>
+          <div class="stat"><span class="stat-label">Deal size</span><span class="stat-value">$100K–$1M ARR</span></div>
+          <div class="stat"><span class="stat-label">Departments</span><span class="stat-value">Engineering, QA, DevOps</span></div>
         </div>
         <ul class="bullets">
           <li>Exceeded quota selling enterprise testing &amp; reliability solutions into global engineering orgs.</li>
@@ -198,31 +317,18 @@
 
       <div class="timeline-item">
         <div class="timeline-top">
-          <h3>Apica — Senior Account Executive</h3>
-          <div class="muted">Jan 2017 – Dec 2021</div>
+          <div class="company-header">
+            <div class="company-logo">AP</div>
+            <h3>Apica — Senior Account Executive</h3>
+          </div>
+          <span class="date-badge">Jan 2017 – Dec 2021</span>
         </div>
-        <p class="small">Enterprise synthetic monitoring &amp; load testing (SaaS)</p>
+        <p class="role-desc">Enterprise synthetic monitoring &amp; load testing (SaaS)</p>
         <div class="role-snapshot">
-          <div class="stat">
-            <span class="stat-label">Quota</span>
-            <span class="stat-value">$1M</span>
-          </div>
-          <div class="stat">
-            <span class="stat-label">Attainment</span>
-            <span class="stat-value">#1 Ranked 2018 &amp; 2019</span>
-          </div>
-          <div class="stat">
-            <span class="stat-label">Typical deal size</span>
-            <span class="stat-value">$100K–$500K+ ARR</span>
-          </div>
-          <div class="stat">
-            <span class="stat-label">Departments engaged</span>
-            <span class="stat-value">Testing/Dev, IT Ops, DevOps, SRE, Infrastructure</span>
-          </div>
-          <div class="stat">
-            <span class="stat-label">Personas</span>
-            <span class="stat-value">VP Eng, QA Directors, DevOps Leaders, CIO/CTO</span>
-          </div>
+          <div class="stat"><span class="stat-label">Quota</span><span class="stat-value">$1M</span></div>
+          <div class="stat attainment-stat"><span class="stat-label">Attainment</span><span class="stat-value">#1 · 2018 &amp; 2019</span></div>
+          <div class="stat"><span class="stat-label">Deal size</span><span class="stat-value">$100K–$500K+ ARR</span></div>
+          <div class="stat"><span class="stat-label">Personas</span><span class="stat-value">VP Eng, QA Directors</span></div>
         </div>
         <ul class="bullets">
           <li>President's Club 2018–2020 for consistent over-attainment.</li>
@@ -234,23 +340,17 @@
 
       <div class="timeline-item">
         <div class="timeline-top">
-          <h3>RadView Software — Senior Account Executive</h3>
-          <div class="muted">Feb 2014 – Dec 2016</div>
+          <div class="company-header">
+            <div class="company-logo">RV</div>
+            <h3>RadView Software — Senior Account Executive</h3>
+          </div>
+          <span class="date-badge">Feb 2014 – Dec 2016</span>
         </div>
-        <p class="small">DevOps — Load Testing &amp; Performance Platform</p>
+        <p class="role-desc">DevOps — Load Testing &amp; Performance Platform</p>
         <div class="role-snapshot">
-          <div class="stat">
-            <span class="stat-label">Quota</span>
-            <span class="stat-value">$1M</span>
-          </div>
-          <div class="stat">
-            <span class="stat-label">Attainment</span>
-            <span class="stat-value">#1 Ranked 2014 &amp; 2016</span>
-          </div>
-          <div class="stat">
-            <span class="stat-label">Typical deal size</span>
-            <span class="stat-value">$50K–$200K+ ARR</span>
-          </div>
+          <div class="stat"><span class="stat-label">Quota</span><span class="stat-value">$1M</span></div>
+          <div class="stat attainment-stat"><span class="stat-label">Attainment</span><span class="stat-value">#1 · 2014 &amp; 2016</span></div>
+          <div class="stat"><span class="stat-label">Deal size</span><span class="stat-value">$50K–$200K+ ARR</span></div>
         </div>
         <ul class="bullets">
           <li>#1 ranked sales rep for new ARR in 2014 and 2016 — 100% net-new hunter role.</li>
@@ -262,6 +362,29 @@
     </div>
   </section>
 
+  <div class="quote-section">
+    <div class="quote-text"><span class="highlight">Taking the easy path</span> = Hard life.</div>
+    <div class="quote-text"><span class="highlight">Hard path</span> = Fulfilled life.</div>
+    <div class="quote-divider"></div>
+    <div class="quote-sub">The philosophy that drives everything</div>
+    <div class="beyond-label">Beyond the Deal</div>
+    <div class="beyond-sub">What I do when I'm not closing</div>
+    <div class="lifestyle-grid">
+      <div class="lifestyle-card">
+        <img src="assets/images/martial_arts.jpg" alt="Martial Arts" onerror="this.parentElement.style.background='var(--panel2)'; this.style.display='none';" />
+        <div class="lifestyle-label">Martial Arts</div>
+      </div>
+      <div class="lifestyle-card">
+        <img src="assets/images/hiit.jpg" alt="HIIT Training" onerror="this.parentElement.style.background='var(--panel2)'; this.style.display='none';" />
+        <div class="lifestyle-label">HIIT</div>
+      </div>
+      <div class="lifestyle-card">
+        <img src="assets/images/motorcycle.jpg" alt="Motorcycling" onerror="this.parentElement.style.background='var(--panel2)'; this.style.display='none';" />
+        <div class="lifestyle-label">Motorcycling</div>
+      </div>
+    </div>
+  </div>
+
   <section id="contact" class="section">
     <h2>Contact</h2>
     <div class="contact-grid">
@@ -270,11 +393,16 @@
         <a href="mailto:btourgee@gmail.com">btourgee@gmail.com</a>
       </div>
       <div class="contact-item">
+        <div class="label">LinkedIn</div>
+        <a href="https://www.linkedin.com/in/briantourgee/" target="_blank" rel="noopener">linkedin.com/in/briantourgee</a>
+      </div>
+      <div class="contact-item">
         <div class="label">Location</div>
-        <div>Peterborough, NH</div>
+        <div style="color:var(--text2); font-size:15px; font-weight:500;">Peterborough, NH</div>
       </div>
     </div>
   </section>
+
 </main>
 
 <footer class="site-footer">
@@ -283,6 +411,38 @@
   </div>
 </footer>
 
-<script src="assets/main.js"></script>
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+  function animateCounter(el, target, suffix) {
+    const duration = 1800;
+    const start = performance.now();
+    const update = (now) => {
+      const elapsed = now - start;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      const current = Math.round(eased * target);
+      el.textContent = current + suffix;
+      if (progress < 1) requestAnimationFrame(update);
+    };
+    requestAnimationFrame(update);
+  }
+  document.querySelectorAll('.stat-bar-number[data-target]').forEach(el => {
+    const target = parseInt(el.dataset.target);
+    const suffix = el.dataset.suffix || '';
+    setTimeout(() => animateCounter(el, target, suffix), 400);
+  });
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const el = entry.target;
+        const target = parseInt(el.dataset.counter);
+        animateCounter(el, target, '%');
+        observer.unobserve(el);
+      }
+    });
+  }, { threshold: 0.5 });
+  document.querySelectorAll('[data-counter]').forEach(el => observer.observe(el));
+</script>
+
 </body>
 </html>
